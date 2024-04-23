@@ -18,6 +18,7 @@ export const onRequest: RequestHandler = async (resEv) => {
     // document request
     if (resEv.request.headers.has("Sec-Fetch-Dest")) {
       const VERCEL_DEPLOYMENT_ID = process.env.VERCEL_DEPLOYMENT_ID || "";
+      console.log("VERCEL_DEPLOYMENT_ID", VERCEL_DEPLOYMENT_ID);
       resEv.cookie.set("__vdpl", VERCEL_DEPLOYMENT_ID, {
         httpOnly: true,
         secure: true,
