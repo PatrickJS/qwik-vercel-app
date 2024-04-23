@@ -12,6 +12,20 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
+// Skew Protection
+export const onRequest: RequestHandler = async (resEv) => {
+  if (process.env.VERCEL_SKEW_PROTECTION_ENABLED) {
+    // document request
+    if (resEv.request.headers.has("Sec-Fetch-Dest")) {
+      const VERCEL_DEPLOYMENT_ID = process.env.VERCEL_DEPLOYMENT_ID;
+      resEv.headers.set(
+        "SET-COOKIE",
+        `__vdpl=${VERCEL_DEPLOYMENT_ID}; Path=/; SameSite=Strict; Secure; HttpOnly`
+      );
+    }
+  }
+};
+
 export default component$(() => {
   return <Slot />;
 });
