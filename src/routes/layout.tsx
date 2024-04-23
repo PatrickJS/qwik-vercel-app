@@ -30,5 +30,9 @@ export const onRequest: RequestHandler = async (resEv) => {
 };
 
 export default component$(() => {
-  return <Slot />;
+  return (
+    <>
+      <Slot />;
+    </>
+  );
 });
